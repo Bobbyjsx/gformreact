@@ -40,6 +40,11 @@
     ]
   },
   "devDependencies": {
+<<<<<<< HEAD
+=======
+    "prettier": "2.8.2",
+    "prettier-plugin-tailwindcss": "^0.2.1",
+>>>>>>> 1d485ba4ae792abccae6ff7d9f652dde682f7b10
     "tailwindcss": "^3.2.4"
   }
 }
