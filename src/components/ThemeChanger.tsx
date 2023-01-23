@@ -37,7 +37,7 @@ const ThemeChanger = () => {
         <option value="Cobalt">Cobalt</option>
         <option value="Chartreuse">Chartreuse</option>
       </select>
-      <div style={{ backgroundColor: color }}>Current color: {color}</div>
+      <div className='rounded-full w-6 h-6' style={{ backgroundColor: color }}>.</div>
     </div>
   );
 };
