@@ -7,6 +7,10 @@ interface Values{
   question:string,
   answer:string,
   head:string,
+  checkbox:string,
+  dropdown:string,
+  text:string,
+  radio:string,
 }
 
 interface ValuesContextProps{
@@ -19,8 +23,9 @@ const populateForm = () => {
   const storedValues = localStorage.getItem("form");
   if (!storedValues) {
     return {
-      title: "Add a title",
-       head: "",
+       title: "Add a title",
+       //  head: "",
+       answer:'',
        description: "",
        question: "Add a question",
     }
