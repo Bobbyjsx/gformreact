@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,7 +7,7 @@ import {
   // Link,
   BrowserRouter
 } from "react-router-dom";
-import Compiler from "./pages/Compiler"
+import Compiler from "./pages/Compiler";
 
 function App(){
 return(
@@ -18,4 +19,4 @@ return(
 );
 }
 
-export default App
+export default App;
