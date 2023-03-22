@@ -1,7 +1,4 @@
-    /// useState([Question])
-
     import React , {useState} from "react";
-    import classNames from "classnames";
     import QuestionItem from "./QuestionItem";
     import { ChangeEvent } from "react";
     import { Theme } from "./Question";
@@ -13,24 +10,25 @@
         inputs: Input_Types[];
         setInputs: React.Dispatch<React.SetStateAction<Input_Types[]>>;
         style: Theme;
+        hasItems:boolean;
+        setHasItems: React.Dispatch<React.SetStateAction<boolean>>;
         
     }
 
 const Questions: React.FC<QuestionProps> = ({
-  options,
-  setOptions,
-  style = {name: "purple"},
-  inputs,
-  setInputs,
+    options,
+    setOptions,
+    style = {name: "purple"},
+    inputs,
+    setInputs,
+    hasItems, 
+    setHasItems
 }: QuestionProps, QuestionProps) => {
-    const inputArray = Object.values(inputs) ;
-      
-    
-    const [optionClass, setOptionClass] = useState(false);
-    const [buttonValue, setButtonValue] = useState(false);
-    const [initField, setInitField] = useState(true);
 
-    const [hasItems, setHasItems] = useState(false);
+    const inputArray = Object.values(inputs) ;
+    // const optionsArray=  Object.values(inputs.items)
+      
+    // const [hasItems, setHasItems] = useState(false);
     
     const handleOptionsChange = ( index : number, e: ChangeEvent<HTMLSelectElement>) => {
         const selectedOption = e.target.value;
@@ -38,21 +36,15 @@ const Questions: React.FC<QuestionProps> = ({
         newOptions[index] = selectedOption;
         setOptions(newOptions);
 
-    if (e.target.value === "checkbox" || e.target.value === "radio") {
-        setHasItems(true);
-        // setButtonValue(true);
-        // setInitField(false);
-        // setOptionClass(true);
-    } else {
-        setHasItems(false);
-        // setButtonValue(false);
-        // setInitField(true);
-        // setOptionClass(false);
-    }
-    
-    console.log("updated input type:",options);
+        if (e.target.value === "checkbox" || e.target.value === "radio") {
+            setHasItems(true);
+        } 
+        else {
+            setHasItems(false);
+        }
+        
     };
-
+    
     const changeHandler = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         const newInputs = [...inputs];
@@ -168,27 +160,23 @@ const Questions: React.FC<QuestionProps> = ({
                                     aria-multiline="true" contentEditable="false"
                                     aria-disabled
                                     autoComplete="false"
-                                    className={classNames({"block border-b-2 border-dashed  capitalize py-[14px] w-[70%] outline-none my-auto":initField, "hidden":!initField})}
+                                    className="block border-b-2 border-dashed  capitalize py-[14px] w-[70%] outline-none my-auto"
                                     style={{borderColor:`${style.name}`}}
                                     value={inputs[index].answer}
                                     onChange={(evt) => changeHandler(index, evt)}
                                     name="answer"
                                 />)}
                                 
-                                
                                 <QuestionItem
                                     inputs={inputs}
                                     setInputs={setInputValues}
-                                    optionClass={optionClass}
-                                    buttonValue={buttonValue}
                                     options={options}
                                     index={index}
                                     hasItems={hasItems}
                                     {...QuestionProps}
                                 />
                             </label>
-                        
-                                
+                          
                             { 
                                 index > 0 && <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-trash my-auto mt-11 " viewBox="0 0 16 16"  onClick={() => handleDeleteInput(input.id)}>
                                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>

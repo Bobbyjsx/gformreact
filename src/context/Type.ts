@@ -2,10 +2,10 @@
 interface Input_Types {
   optionanswer: string ;
   optioncheck: boolean;
-  title: string;
+  title?: string;
   date: string;
   id: number;
-  description: string;
+  description?: string;
   question: string;
   answer: string;
   checkbox: string;
@@ -15,6 +15,13 @@ interface Input_Types {
   file: string ;
   filter: any[];
   map: any[];
+   hasItems: boolean;
+    items: {
+        id: number,
+        question: string,
+        options:string[];
+        isTrue: boolean,
+    }[];
 }
 
 

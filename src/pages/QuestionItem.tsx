@@ -1,5 +1,4 @@
     import React, {useState} from "react";
-    import classNames from "classnames";
     import { Theme } from "./Question";
     import { Input_Types } from "../context/Type";
 
@@ -11,10 +10,6 @@
       options:string[];
       style: Theme;
       index: number;
-      optionClass:string;
-      setOptionClass: React.Dispatch<React.SetStateAction<string>>;
-      buttonValue: string; 
-      setButtonValue: React.Dispatch<React.SetStateAction<string>>;
     }
 
     interface QuestionItems {
@@ -27,8 +22,6 @@
         inputs,
         setInputs,
         index,
-        optionClass,
-        buttonValue,
         options,
         style={name:"purple"},
         hasItems
@@ -42,24 +35,22 @@
             },
         ]);
         
-        const changeHandler = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+        const changeHandler = ( index: number, event: React.ChangeEvent<HTMLInputElement> ) => {
             const { name, value } = event.target;
             const newInputs = [...inputs];
             newInputs[index][name] = value;
             setInputs(newInputs);
-            // const updatedOptions = [...inputs];
-            // updatedOptions[index].optionValues = value;
-            // setInputs(updatedOptions);
-
         };
          
         const handleCheckboxChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
             const { checked } = event.target;
             const newInputs = [...inputs];
             newInputs[index]["optioncheck"] = checked;
+            const inputval= newInputs[index]["optionanswer"];
+            // if(checked===true){
+                console.log(index, inputval);
+            // }
             setInputs(newInputs);
-            console.log(checked);
-            console.log(index);
         };
 
         const addItems = (e: React.MouseEvent<HTMLButtonElement>) =>{
@@ -71,31 +62,27 @@
             }];
             setItems([...items, ...newItems]);
         };
-
         const deleteItems = (e: React.MouseEvent<HTMLButtonElement>) => {
             e.preventDefault();
             const updatedItems = items.slice(0, -1);
             setItems(updatedItems);
         };
-
-
-
     return (
         <>
         { hasItems && (
          <div>
                 <div>
                     <div>
-                        {items.map((item, i) => (
-                            <label htmlFor="op" key={i} className="w-44 flex flex-row gap-5 ml-5">
+                        {items.map((item, i: number ) => (
+                            <label htmlFor="op" key={item.id} className="w-44 flex flex-row gap-5 ml-5">
                                 <input
                                     id='optioncheck'
                                     type={options[index]}
                                     placeholder={options[index]}  
-                                    aria-multiline="true" contentEditable="true"
                                     className="border-b-2 border-dashed capitalize  py-[14px] w-[70%] outline-none my-auto"
                                     style={{borderColor:`${style.name}`}}
                                     checked={inputs[index].optioncheck}
+                                    value={inputs[index].optionanswer}
                                     onChange={(evt) => handleCheckboxChange(i, evt)}
                                     name="optioncheck"
                                 /> 
