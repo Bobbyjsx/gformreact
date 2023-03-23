@@ -18,15 +18,13 @@ const populateForm = (): Input_Types[] => {
         number: "number",
         checkbox: "checkbox",
         optionanswer: "",
-        optioncheck: false,
         file: "file",
         filter: [],
         map: [],
         hasItems: false,      
         items: [{
             id: Date.now(),
-            question: " ",
-            options:["hello","me"],
+            options:" ",
             isTrue: false,
         }],
 },];

@@ -10,6 +10,8 @@
         inputs: Input_Types[];
         setInputs: React.Dispatch<React.SetStateAction<Input_Types[]>>;
         style: Theme;
+        items:Input_Types["items"];
+        setItems:React.Dispatch<React.SetStateAction<Input_Types["items"]>>;
         hasItems:boolean;
         setHasItems: React.Dispatch<React.SetStateAction<boolean>>;
         
@@ -21,14 +23,14 @@ const Questions: React.FC<QuestionProps> = ({
     style = {name: "purple"},
     inputs,
     setInputs,
+    items,
+    setItems,
     hasItems, 
     setHasItems
 }: QuestionProps, QuestionProps) => {
 
     const inputArray = Object.values(inputs) ;
     // const optionsArray=  Object.values(inputs.items)
-      
-    // const [hasItems, setHasItems] = useState(false);
     
     const handleOptionsChange = ( index : number, e: ChangeEvent<HTMLSelectElement>) => {
         const selectedOption = e.target.value;
@@ -50,7 +52,6 @@ const Questions: React.FC<QuestionProps> = ({
         const newInputs = [...inputs];
         newInputs[index][name] = value;
         setInputs(newInputs);
-
     };
 
      const handleDeleteInput = (id: number) => {
@@ -68,32 +69,30 @@ const Questions: React.FC<QuestionProps> = ({
             {inputArray.map(( input, index : number) => (
 
                 <section className='p-0 flex flex-col mx-auto w-full' key={index} >
-                    {index === 0 && (
-                    <div 
-                        className="flex flex-col w-3/5 mx-auto px-6 py-12 gap-3 bg-white border-none rounded-lg h-52      align-middle shadow-md"
-                    >
-
-                        <input 
-                            type="text"
-                            className='border-b-2 p-2 text-xl font-semibold outline-none capitalize'
-                            style={{borderColor:`${style.name}`}}
-                            placeholder='form Title'
-                            name="title"
-                            value={inputs[index].title}
-                            onChange={(evt) => changeHandler(index, evt)}
-                        />
-                        <input 
-                            type="text"
-                            className='border-b-2 p-2 font-normal text-sm outline-none capitalize'
-                            style={{borderColor:`${style.name}`}}
-                            placeholder='form Title'
-                            name="description"
-                            value={inputs[index].description}
-                            onChange={(evt) => changeHandler(index, evt)}
-                        />
-                    </div>     
-                    )}
-
+                    {
+                        index === 0 && (
+                            <div className="flex flex-col w-3/5 mx-auto px-6 py-12 gap-3 bg-white border-none rounded-lg h-52 align-middle shadow-md">
+                                <input 
+                                    type="text"
+                                    className='border-b-2 p-2 text-xl font-semibold outline-none capitalize'
+                                    style={{borderColor:`${style.name}`}}
+                                    placeholder='form Title'
+                                    name="title"
+                                    value={inputs[index].title}
+                                    onChange={(evt) => changeHandler(index, evt)}
+                                />
+                                <input 
+                                    type="text"
+                                    className='border-b-2 p-2 font-normal text-sm outline-none capitalize'
+                                    style={{borderColor:`${style.name}`}}
+                                    placeholder='form Title'
+                                    name="description"
+                                    value={inputs[index].description}
+                                    onChange={(evt) => changeHandler(index, evt)}
+                                />
+                            </div>     
+                        )
+                    }
                     <div 
                         className='p-4 w-3/5 mx-auto mt-4 border-2 rounded-lg bg-white flex flex-col justify-between shadow-md' 
                         style={{borderStyle: `${style.name}`}}
@@ -172,6 +171,8 @@ const Questions: React.FC<QuestionProps> = ({
                                     setInputs={setInputValues}
                                     options={options}
                                     index={index}
+                                    items={items}
+                                    setItems={setItems}
                                     hasItems={hasItems}
                                     {...QuestionProps}
                                 />

@@ -12,7 +12,6 @@ interface Theme {
   name: string;
 }
 
-
 interface CompilerProps {
   inputs: Input_Types[];
   setInputs: React.Dispatch<React.SetStateAction<Input_Types[]>>;
@@ -26,8 +25,11 @@ const Question: React.FC<CompilerProps> = ({ inputs, setInputs }:CompilerProps) 
 
   const [style, setStyle] = useState<Theme>({ name: "purple" });
 
+   const [items, setItems] = useState<Input_Types["items"]>([{  id: 0,  options:"", isTrue: false, }]);
+         const passSetItems = (setter: Input_Types["items"])  =>{
+            setItems(setter);
+         };
   const inputArray = Object.values(inputs);
-//  const optionsArray = Inputs.items[0].options;
 
   const updateHasItems = (item:boolean) =>{
     setHasItems(item);
@@ -40,6 +42,17 @@ const Question: React.FC<CompilerProps> = ({ inputs, setInputs }:CompilerProps) 
     setInputs(newInputs);
   };
 
+        const handleCheckboxChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+            const { checked } = event.target;
+            const newInputs = [...items];
+            newInputs[index]["isTrue"] = checked;
+            const inputval= newInputs[index]["isTrue"];
+            // if(checked===true){
+                // console.log(index, inputval);
+            // }
+            setItems(newInputs);
+        };
+
   const handleAddInput = () => {
     const newInput = {
       id: Date.now(),
@@ -51,20 +64,16 @@ const Question: React.FC<CompilerProps> = ({ inputs, setInputs }:CompilerProps) 
       date: "date",
       number: "number",
       file: "file",
-      optionanswer: "",
-      optioncheck: false,
+      optionanswer: "", 
       filter: [],
       prevInputs: [],
       map: [],
       hasItems: false,      
       items: [{
           id: Date.now(),
-          question: "hi",
-          options:[
-            "hello",
-            "me"
-          ],
+          options:"musu",
           isTrue: false,
+
       }],
     };
     setOptions([...options, "Text"]);
@@ -139,6 +148,8 @@ const setInputValues = (inputValues: Input_Types[]) => {
                  <Questions 
                     inputs={inputs}
                     setInputs={setInputValues}
+                    items={items}
+                    setItems={passSetItems}
                     options={options}
                     setOptions={setOptionsValues}
                     style={style}
@@ -169,34 +180,50 @@ const setInputValues = (inputValues: Input_Types[]) => {
               </>
             )} 
         {inputs[index].question !== "" && (
-            <div className="flex flex-col px-6 py-12 gap-3 border-2  bg-white  rounded-lg h-52 align-middle shadow-md">
+            <div className="flex flex-col px-6 py-12 gap-3 border-2  bg-white  rounded-lg  align-middle shadow-md">
               <h2 className="font-semibold text-xl">{item.question}</h2>
-              <div className="flex flex-row ">
-                <input
-                  id='preview_answer'
-                  type={options[index]}
-                  placeholder={options[index]}
-                  aria-multiline="true" 
-                  autoComplete="false"
-                  className={`block border-b-2 border-dashed bg-gray-100 rounded-md px-3 capitalize py-[14px] mr-3 ${hasItems ? " w-auto" : "w-[70%]"} outline-none my-auto`}
-                  style={{borderColor:`${style.name}`}}
-                  value={inputs[index].answer}
-                  onChange={(evt) => changeHandler(index, evt)}
-                  name="answer"
-                />
-              {hasItems && (
+                {!hasItems && (
                   <input
-                      name="optionanswer"
-                      type="text" 
-                      placeholder={options[index]}
-                      autoComplete='true'
-                      className="border-b-2 border-dashed capitalize  py-[7px] w-44 outline-none my-auto"
-                      disabled={true}
-                      defaultValue={inputs[index].optionanswer}
-                      style={{borderColor:`${style.name}`}}
-                    />
+                    id='preview_answer'
+                    type={options[index]}
+                    placeholder={options[index]}
+                    aria-multiline="true" 
+                    autoComplete="false"
+                    className={`block border-b-2 border-dashed bg-gray-100 rounded-md px-3 capitalize py-[14px] mr-3 ${hasItems ? " w-auto" : "w-[70%]"} outline-none my-auto`}
+                    style={{borderColor:`${style.name}`}}
+                    value={inputs[index].answer}
+                    onChange={(evt) => changeHandler(index, evt)}
+                    name="answer"
+                  />
                 )}
-              </div>
+              {hasItems && (
+                  items.map((item, i)=>(
+                    <label htmlFor="op" key={i} className="w-44 flex flex-row gap-5 ml-5">
+                                <input
+                                    id="optioncheck"
+                                    type={options[index]}
+                                    placeholder={options[index]}  
+                                    className="border-b-2 border-dashed capitalize  py-[14px] w-[70%] outline-none my-auto"
+                                    style={{borderColor:`${style.name}`}}
+                                    checked={items[i].isTrue}
+                                    value={items[i].options}
+                                    onChange={(evt) => handleCheckboxChange(i, evt)}
+                                    name="optioncheck"
+                                /> 
+                                <input
+                                    name="options"
+                                    type="text" 
+                                    placeholder={options[index]}
+                                    disabled
+                                    className="border-b-2 border-dashed capitalize  py-[14px] w-44 outline-none my-auto bg-transparent"
+                                    value={items[i].options}
+                                    // onChange={(evt) => changeHandler(i, evt)}
+                                    style={{borderColor:`${style.name}`}}
+                                />
+                                
+                            </label>
+                  ))
+                )}
             </div>
           )}
 

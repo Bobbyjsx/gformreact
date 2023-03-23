@@ -1,7 +1,6 @@
 
 interface Input_Types {
-  optionanswer: string ;
-  optioncheck: boolean;
+  optionanswer: string ; 
   title?: string;
   date: string;
   id: number;
@@ -14,15 +13,21 @@ interface Input_Types {
   number: string;
   file: string ;
   filter: any[];
+  hasItems: boolean;
   map: any[];
-   hasItems: boolean;
     items: {
         id: number,
-        question: string,
-        options:string[];
+        options:string;
         isTrue: boolean,
     }[];
 }
 
+interface QuestionItems {
+        id: number;
+        options: string;
+        isTrue: boolean,
 
-export type {Input_Types};
+    }
+
+
+export type {Input_Types, QuestionItems};
