@@ -5,8 +5,6 @@ import classNames from "classnames";
 import { Tab } from "@headlessui/react";
 import { Input_Types } from "../context/Type";
 import Questions from "./Questions";
-import QuestionItem from "./QuestionItem";
-
 
 interface Theme {
   name: string;
@@ -89,12 +87,12 @@ const setInputValues = (inputValues: Input_Types[]) => {
    
   return(
 
-    <form className="text-black p-4 bg-white" >
+    <form className="text-black bg-white" >
 
     <Header theme={style} setStyle={setStyle}  inputs={inputs} />
 
       <Tab.Group>
-         <Tab.List className="flex space-x-1 gap-3 rounded-xl bg-gray-100 p-1 w-[70%] mx-auto">
+         <Tab.List className="flex space-x-1 sm:mt-[8%] gap-3 rounded-xl bg-gray-100 p-1 w-[70%] mx-auto ">
             <Tab
                 className={({ selected }) =>
                   classNames(
@@ -140,11 +138,11 @@ const setInputValues = (inputValues: Input_Types[]) => {
             <Tab.Panel
               id="Questions"
               className={classNames(
-              "rounded-xl bg-white p-3",
+              " bg-slate-200   ",
                 " "
               )}
             >
-             <div className=' bg-slate-200 p-4 shadow-inner'>
+             <div className=' bg-slate-200  min-h-[800px] w-full  shadow-inner  '>
                  <Questions 
                     inputs={inputs}
                     setInputs={setInputValues}

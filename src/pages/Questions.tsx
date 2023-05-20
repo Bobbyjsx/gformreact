@@ -1,4 +1,4 @@
-    import React , {useState} from "react";
+    import React from "react";
     import QuestionItem from "./QuestionItem";
     import { ChangeEvent } from "react";
     import { Theme } from "./Question";
@@ -64,7 +64,7 @@ const Questions: React.FC<QuestionProps> = ({
   };
   
     return (
-        <div>
+        <div className="pt-[5%]">
             
             {inputArray.map(( input, index : number) => (
 

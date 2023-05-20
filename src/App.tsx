@@ -8,15 +8,17 @@ import {
   BrowserRouter
 } from "react-router-dom";
 import Compiler from "./pages/Compiler";
+import HomePage from "./pages/HomePage";
 
-function App(){
-return(
-   <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Compiler />} />
-    </Routes>
-   </BrowserRouter>
-);
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/Compiler" element={<Compiler />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
